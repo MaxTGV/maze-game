@@ -2,19 +2,18 @@ import React from "react";
 import styled from "styled-components";
 import check from "./img/check.svg";
 import error from "./img/error.svg";
-import flag from "./img/flag.svg";
 import { PLAYGROUND } from "./shared/gameData";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getAnswer,
   getClickedField,
   getFinishField,
-  getStartField,
   getSteps,
 } from "./state/selectors";
 import { setAnswer, setClikedField } from "./state/actions";
 import { Header } from "./Header";
 import { clearGame } from "./shared/clearGame";
+import { StartField } from "./StartField";
 
 const Playground = styled.div`
   width: max-content;
@@ -40,16 +39,6 @@ const Field = styled.div`
   border-radius: 16px;
 `;
 
-const StartField = styled.div`
-  margin-left: 65px;
-  width: 25%;
-  height: 25%;
-  background: no-repeat center / 100% url(${(prop) => prop.image});
-  grid-column: ${(prop) => prop.column};
-  grid-row: ${(prop) => prop.row};
-  z-index: 10;
-`;
-
 const DirectionPlayground = styled.div`
   width: 310px;
   display: flex;
@@ -70,7 +59,6 @@ const DirectionPlayground = styled.div`
 
 export const App = () => {
   const dispatch = useDispatch();
-  const startField = useSelector(getStartField);
   const finishField = useSelector(getFinishField);
   const steps = useSelector(getSteps);
   const answer = useSelector(getAnswer);
@@ -96,7 +84,7 @@ export const App = () => {
             row={field.y}
           />
         ))}
-        <StartField column={startField.x} row={startField.y} image={flag} />
+        <StartField/>
         {answer && (
           <Field
             image={error}
